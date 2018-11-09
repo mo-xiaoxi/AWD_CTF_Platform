@@ -5,5 +5,4 @@ ENV PYTHONUNBUFFERED 1
 ADD webapps /webapps
 WORKDIR /webapps
 RUN pip install -r requirements.txt
-EXPOSE 8000
 CMD ["/webapps/run.sh"]

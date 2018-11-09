@@ -8,7 +8,7 @@ import random
 
 def copy_dir(src, dest):
     os.system('mkdir -m 777 -p %s' % (dest))
-    os.system('cp -r %s %s' % (src, dest))
+    os.system('cp -r %s/* %s' % (src, dest))
 
 
 def read_data(path):
@@ -64,9 +64,17 @@ def update_flag_key(team_name, flag_key):
     write_data(team_name + '/flag.py', data)
     return
 
+def check_end_time(end_time):
+    tmp =  end_time.split(', ')
+    for i in range(len(tmp)):
+        tmp[i] = str(int(tmp[i]))
+    return ', '.join(tmp)
+
+
 def update_flag_server_config(secret_key, user_count, hold_hour=24):
     t  = time.time()+ int(hold_hour)*60*60
-    end_time = time.strftime("%Y, %m, %d, %H, %M, %S", time.localtime(t)) 
+    end_time = time.strftime("%Y, %m, %d, %H, %M, %S", time.localtime(t))
+    end_time = check_end_time(end_time)    
     data = """#coding:utf-8
 import hashlib
 

@@ -45,11 +45,10 @@ def update_target_server(user_name, flag):
 def update_status(user_name, round_index, run):
     data = {'secret_key': secret_key, 'user_name': user_name, 'action': 'status', 'data': run,
             'round_index': round_index}
-    print(data)
     try:
         res = requests.post(flag_server, data=data)
-        print("Status code:   %i" % res.status_code)
-        print("Response body: %s" % res.content)
+        # print("Status code:   %i" % res.status_code)
+        # print("Response body: %s" % res.content)
         if res.status_code == 200 and b'succ' in res.content:
             return True
     except Exception as e:
