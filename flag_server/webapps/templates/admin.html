@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}管理员{% endblock %}
+
+{% block style %}
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/helper.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/semantic.ui.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+
+        <div class="unix-login">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
+                        <div class="login-content card" style="opacity: .50;">
+                            <div class="login-form">
+                                <h2 style="-ms-text-align-last: center;text-align-last: center;: center;">管理员界面</h2>
+                                <form class="ui form" method="post">
+                                    <div class="field">
+                                        <label>靶机编号</label>
+                                        <select name="user_name" class="ui fluid normal dropdown" id="user_name">
+                                            <option value="">靶机编号
+                                            </option>
+
+                                            {% for foo in status %}
+                                                <option value="{{ foo.user_name }}">{{ foo.user_name }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div><!-- 
+                                    <div class="field">
+                                        <label>靶机flag</label>
+                                        <div class="ui input">
+                                            <input type="text" placeholder="靶机flag" name="flag_num" id="token1">
+                                        </div>
+                                    </div> -->
+                                    <div class="field">
+                                        <label>是否宕机</label>
+                                        <select name="run" class="ui fluid normal dropdown">
+                                            <option value="1">运行正常</option>
+                                            <option value="0">已宕机</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">提交
+                                    </button>
+                                    <a href="{% url 'admin_table' %}" style="margin-left: 78%" target="_blank">查看总数据</a>
+                                    <div class="ui error message"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+    <!--stickey kit -->
+    <script src="{% static 'js/sticky-kit.min.js' %}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'js/custom.min.js' %}"></script>
+    <script src="{% static 'js/semantic.ui.min.js' %}"></script>
+    <script>
+        $('.ui.form')
+            .form({
+                on: 'blur',
+                fields: {
+                    flag: {
+                        identifier: 'user_name',
+                        rules: [
+                            {
+                                type: 'minLength[1]',
+                                prompt: '请选择靶机编号'
+                            },
+                        ]
+                    },
+                    token: {
+                        identifier: 'token1',
+                        rules: [
+                            {
+                                type: 'minLength[6]',
+                                prompt: 'token长度至少为6'
+                            },
+                        ]
+                    },
+                }
+            });
+        $('.ui.dropdown').dropdown();
+        $('.ui.fluid.normal.dropdown').dropdown();
+    </script>
+    </body>
+{% endblock %}
+

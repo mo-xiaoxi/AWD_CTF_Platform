@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    {% block head %}
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <!-- Favicon icon -->
+        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon.png' %}">
+        <title>{% block title %}{% endblock %}</title>
+        {% block style %}{% endblock %}
+        <style>
+            #main-wrapper {
+                background-image: url('/static/img/{{ backimg }}.jpg');
+                background-position: center ;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                background-color: #CCCCCC;
+                height: {{ height }}vh;
+            }
+
+        </style>
+    {% endblock %}
+</head>
+<body {% block body_class %}class="fix-header fix-sidebar"{% endblock %}>
+{% block body %}
+{% endblock %}
+{% block script %}
+{% endblock %}
+<script src="{% static 'js/hullabaloo.min.js' %}"></script>
+<script>var hulla = new hullabaloo();</script>
+<script>hulla.send("{{ message.1 }}", "{{ message.0 }}");</script>
+</body>
+
+</html>

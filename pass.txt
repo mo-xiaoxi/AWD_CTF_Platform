@@ -1,0 +1,4 @@
+team01	ctf:66f85a	ssh:2201	port:8801
+team02	ctf:9db046	ssh:2202	port:8802
+team03	ctf:061705	ssh:2203	port:8803
+team04	ctf:5a0f5c	ssh:2204	port:8804

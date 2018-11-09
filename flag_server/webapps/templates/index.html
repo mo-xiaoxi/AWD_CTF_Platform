@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}提交flag{% endblock %}
+
+{% block style %}
+ 
+    <!-- Bootstrap Core CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <!-- Custom CSS -->
+    <link href="{% static 'css/helper.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/semantic.ui.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block body %}
+    <body class="fix-header fix-sidebar">
+    <!-- Preloader - style you can find in spinners.css -->
+    <div class="preloader">
+        <svg class="circular" viewBox="25 25 50 50">
+            <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+        </svg>
+    </div>
+    <!-- Main wrapper  -->
+    <div id="main-wrapper">
+
+        <div class="unix-login">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
+<h1><font face="verdana" color="#3CF070">距离比赛结束还有:</font></h1>
+<style>  
+*{ margin:0; padding:0; list-style:none;}  
+body{ font-size:18px; text-align:center;}  
+.time{ font-size:50px;color:red;height:30px; padding:0px;}  
+</style>
+<body>  
+    <div class="time">  
+        <span id="t_d">比</span>  
+        <span id="t_h">赛</span>  
+        <span id="t_m">结</span>  
+        <span id="t_s">束</span>  
+    <span id="daoqi"></span>  
+    </div>  
+
+  
+<script>  
+   function GetRTime(){  
+       var EndTime= new Date('{{Year}}/{{month}}/{{day}} {{Hour}}:{{Minute}}:{{Second}}');
+       var NowTime = new Date(); 
+       var t =EndTime.getTime() - NowTime.getTime(); 
+       var d=Math.floor(t/1000/60/60/24);  
+       var h=Math.floor(t/1000/60/60%24);  
+       var m=Math.floor(t/1000/60%60);  
+       var s=Math.floor(t/1000%60);  
+       if(s>="0" && m>="0" && h>="0" && d>="0"){
+       document.getElementById("t_d").innerHTML = d + "";
+       document.getElementById("t_h").innerHTML = h + ":";  
+       document.getElementById("t_m").innerHTML = m + ":";  
+       document.getElementById("t_s").innerHTML = s + "";  }
+       if(s=="0" && m=="0" && h=="0" && d=="0"){ 
+       document.getElementById("t_d").innerHTML =  "";  
+       document.getElementById("t_h").innerHTML =  "";  
+       document.getElementById("t_m").innerHTML =  "";  
+       document.getElementById("t_s").innerHTML =  "";
+       document.getElementById("daoqi").innerHTML ="比赛已结束";//这里设置到期时间后的提醒内容  
+       document.getElementById("daoqi").style.color="red";}  
+}  
+   setInterval(GetRTime,0);  
+</script>
+                        <div class="login-content card" style="opacity: .70;">
+                            <div class="login-form">
+                                <h2 style="-ms-text-align-last: center;text-align-last: center;: center;">提交Flag</h2>
+                                <form class="ui form" method="post">
+                                    <div class="field">
+                                        <label>Flag</label>
+                                        <div class="ui input">
+                                            <input type="text" placeholder="Flag" name="flag" id="flag1">
+                                        </div>
+                                    </div>
+                                    <div class="field">
+                                        <label>选手 token</label>
+                                        <div class="ui input">
+                                            <input type="text" placeholder="选手 token" name="token" id="token1">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30" >提交 
+                                    </button>
+
+                                    <a href="{% url 'score' %}" style="margin-left: 78%" target="_blank">查看总榜</a>
+                                    <div class="ui error message"></div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- End Wrapper -->
+    <!-- All Jquery -->
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <!-- Bootstrap tether Core JavaScript -->
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!-- slimscrollbar scrollbar JavaScript -->
+    <script src="{% static 'js/jquery.slimscroll.js' %}"></script>
+    <!--stickey kit -->
+    <script src="{% static 'js/sticky-kit.min.js' %}"></script>
+    <!--Custom JavaScript -->
+    <script src="{% static 'js/custom.min.js' %}"></script>
+    <script src="{% static 'js/semantic.ui.min.js' %}"></script>
+    <script>
+        $('.ui.form')
+            .form({
+                on: 'blur',
+                fields: {
+                    flag: {
+                        identifier: 'flag1',
+                        rules: [
+                            {
+                                type: 'minLength[6]',
+                                prompt: 'Flag长度至少为6'
+                            },
+                        ]
+                    },
+                    token: {
+                        identifier: 'token1',
+                        rules: [
+                            {
+                                type: 'minLength[6]',
+                                prompt: 'token长度至少为6'
+                            },
+                        ]
+                    },
+                }
+            })
+        ;
+    </script>
+    </body>
+{% endblock %}
+
