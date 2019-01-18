@@ -4,6 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from django.contrib.auth import login, authenticate, logout
 from django.http import HttpResponse, HttpResponseNotFound
+from django.db.models import F
 from .models import Score, Flag, Logs, Status, Round
 
 from .config import *
@@ -46,7 +47,7 @@ def accounts_logout(request):
 def index(request):
     utcnow = datetime.datetime.now()
     log = -3
-    message = ['success', '欢迎来到提交平台']  # "Success Message" "success"
+    message = ['success', '欢迎来到提交平台']
     ti = datetime.datetime(Year, month, day, Hour, Minute, Second)
     if utcnow > ti:
         message = "warning", "比赛已结束！"
@@ -73,9 +74,12 @@ def index(request):
                     else:
                         message = "success", "flag提交成功！"
                         score_change = flag_score
-                        Score.objects.filter(token=token).update(fraction=fraction + score_change)
-                        Score.objects.filter(user_name=flag_result[0].user_name).update(
-                            fraction=fraction - score_change)
+                        attack_score = Score.objects.get(token=token)
+                        attack_score.fraction = F('fraction') + score_change
+                        attack_score.save()
+                        attacked_score = Score.objects.get(user_name=flag_result[0].user_name)
+                        attacked_score.fraction = F('fraction') - score_change
+                        attacked_score.save()
                 else:
                     # 超时
                     message = "warning", "flag已过期"
@@ -119,30 +123,11 @@ def user_api1(request):
     htm = sorted(dict2list(html), key=lambda x: x[1], reverse=True)  # 按照第1个元素降序排列
     j = 1
     for i in htm:
-        if j == 1:
-            t = str(j)
-            htmls += """<tr><td>第{}名</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
-                t, i[0], '&ensp;' + str(i[1][0]), i[1][1])
-            j += 1
-            continue
-        if j == 2:
-            t = str(j)
-            htmls += """<tr><td>第{}名</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
-                t, i[0], '&ensp;' + str(i[1][0]), i[1][1])
-            j += 1
-            continue
-        if j == 3:
-            t = str(j)
-            htmls += """<tr><td>第{}名</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
-                t, i[0], '&ensp;' + str(i[1][0]), i[1][1])
-            j += 1
-            continue
-        else:
-            t = str(j)
-            htmls += "<tr><td>第{}名</td><td>{}</td><td>{}</td><td>{}</td></tr>".format(t, i[0],
-                                                                                      '&ensp;' + str(i[1][0]),
-                                                                                      i[1][1])
-            j += 1
+        t = str(j)
+        htmls += """<tr><td>第{}名</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
+            t, i[0], '&ensp;' + str(i[1][0]), i[1][1])
+        j += 1
+
     return HttpResponse(htmls)
 
 
@@ -195,7 +180,8 @@ def user_api2(request):
     round_index = Round.objects.all()[0].round_index
     for i in Logs.objects.filter(Q(result=100) | Q(result=-100, round_index=round_index))[
              ::-1][0:20]:
-        html += """<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
+        html += """<tr><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td><td>{}</td></tr>""".format(
+            round_index,
             i.user_name,
             i.hacked_name,
             str(i.last)[5:19],
@@ -262,6 +248,7 @@ def update(request):
                 round_index=round_index,
             ).save()
             Round.objects.all().update(round_index=round_index)  # 开始新的一轮
+            Status.objects.all().update(round_index=round_index)
             return HttpResponse("flag updated succ")
         if action == 'status':
             if int(data):
