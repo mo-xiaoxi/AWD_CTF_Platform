@@ -5,7 +5,7 @@ import time
 import datetime
 from config import *
 
-check = importlib.import_module('check_scripts.check_example').check
+check = importlib.import_module('check_scripts.checker').check
 
 
 def check_one(user_name):

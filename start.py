@@ -3,13 +3,12 @@
 import sys
 import os
 
-
 teamno = int(sys.argv[1])
 
 
 def start_flag():
     os.system('cd flag_server && sh docker.sh')
-    print '[*] start docker flag_server'
+    print('[*] start docker flag_server')
 
 
 def gen_host_lists():
@@ -22,18 +21,17 @@ def gen_host_lists():
 def start_check():
     gen_host_lists()
     os.system('cd check_server && sh docker.sh')
-    print '[*] start docker check_server'
+    print('[*] start docker check_server')
 
 
 def start_team(teamno):
     team_dir = 'team' + str(teamno).zfill(2)
     os.system('cd %s && sh docker.sh' % (team_dir))
-    print '[*] start docker %s' % team_dir
+    print('[*] start docker %s' % team_dir)
 
 
 if __name__ == '__main__':
-    for i in range(1,teamno+1):
+    for i in range(1, teamno + 1):
         start_team(i)
     start_flag()
     start_check()
-    
