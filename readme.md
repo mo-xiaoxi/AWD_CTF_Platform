@@ -99,11 +99,11 @@ xxx代表环境名称。
 
 ### 支付宝
 
-![zhifubao](img/zhifubao.jpeg)
+![zhifubao](img/zhifubao.jpeg){:height="400px" width="450px"}
 
 ### 微信
 
-![wechat](img/wechat.jpeg)
+![wechat](img/wechat.jpeg){:height="400px" width="450px"}
 
 
 
