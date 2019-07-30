@@ -91,7 +91,7 @@ xxx代表环境名称。
 
 ### 细化说明
 
-
+https://github.com/m0xiaoxi/AWD_CTF_Platform/blob/master/doc/
 
 ## 捐助
 
