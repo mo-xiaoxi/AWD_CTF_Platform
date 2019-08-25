@@ -174,6 +174,7 @@ def admin_api1(request):
             j += 1
     return HttpResponse(htmls)
 
+
 # 状态日志
 def user_api2(request):
     html = ''
@@ -228,7 +229,6 @@ def admin_api3(request):
     return HttpResponse(html)
 
 
-
 def update(request):
     """
     更新flag和服务器状态
@@ -256,7 +256,7 @@ def update(request):
             else:
                 enc = -1
             Status.objects.filter(user_name=user_name, round_index=round_index).update(run=data)
-            if enc > 0 :
+            if enc > 0:
                 # Score.objects.filter(user_name=user_name).update(fraction=fraction + flag_score* enc)
                 Logs(
                     user_name=user_name,
@@ -267,7 +267,9 @@ def update(request):
                     result=0
                 ).save()
             else:
-                Score.objects.filter(user_name=user_name).update(fraction=fraction + flag_score * enc)
+                downserver_score = Score.objects.get(user_name=user_name)
+                downserver_score.fraction = F('fraction') + flag_score * enc
+                downserver_score.save()
                 Logs(
                     user_name=user_name,
                     hacked_name=user_name,
@@ -278,6 +280,7 @@ def update(request):
                 ).save()
             return HttpResponse("status updated succ")
     return HttpResponseNotFound
+
 
 @login_required
 def admin(request):
@@ -291,7 +294,9 @@ def admin(request):
             enc = -1
         user_name = request.POST['user_name']
         round_index = Round.objects.all()[0].round_index
-        Score.objects.filter(user_name=user_name).update(fraction=fraction + flag_score * enc)
+        server_score = Score.objects.get(user_name=user_name)
+        server_score.fraction = F('fraction') + flag_score * enc
+        server_score.save()
         Status.objects.filter(user_name=user_name, round_index=round_index).update(run=request.POST['run'])
         Logs(
             user_name=user_name,
@@ -304,6 +309,7 @@ def admin(request):
         message = ['success', '修改成功了呢']
     status_ = Status.objects.all()
     return render(request, 'admin.html', {'status': status_, 'message': message, 'backimg': 6, 'height': 100})
+
 
 @login_required
 def admin_table(request):

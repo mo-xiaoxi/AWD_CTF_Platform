@@ -15,7 +15,7 @@ def check_one(user_name):
 
 
 def update_flag_server(user_name, flag, round_index):
-    data = {'secret_key': secret_key, 'user_name': user_name, 'action': 'flag', 'data': flag,
+    data = {'secret_key': secret_key, 'user_name': user_name, 'action': 'update flag', 'data': flag,
             "round_index": round_index}
     try:
         res = requests.post(flag_server, data=data)
