@@ -97,6 +97,11 @@ https://github.com/m0xiaoxi/AWD_CTF_Platform/blob/master/doc/
 
 
 
+## 致谢
+
+- [Zhl20018#awd-platform](https://github.com/zhl2008/awd-platform)
+- [Henryzhao#gotsctf2018](https://github.com/Henryzhao96)
+
 # License
 
 The AWD_CTF_Platform is released under the [GPLv3](https://github.com/m0xiaoxi/AWD_CTF_Platform/blob/master/LICENSE)
