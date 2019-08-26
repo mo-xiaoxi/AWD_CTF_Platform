@@ -95,19 +95,8 @@ xxx代表环境名称。
 
 https://github.com/m0xiaoxi/AWD_CTF_Platform/blob/master/doc/
 
-## 捐助
-
-如果您觉得该训练平台对您有帮助，欢迎给予我们一定的捐助，也是帮助该训练平台更好的发展。
-
-### 支付宝
-
-![zhifubao](img/zhifubao.jpeg)
-
-### 微信
-
-![wechat](img/wechat.jpeg)
 
 
+# License
 
-
-
+The AWD_CTF_Platform is released under the [GPLv3](https://github.com/m0xiaoxi/AWD_CTF_Platform/blob/master/LICENSE)
