@@ -1,11 +1,11 @@
 #coding:utf-8
 import hashlib
 
-secret_key = '829590c6dd01fa226c2f00c92bf75129'
+secret_key = 'c1cbf6bcce787ef8bb206f0682b2897f'
 flag_score = 100 # 一个flag的分数
-Year, month, day, Hour, Minute, Second = 2019, 8, 19, 19, 40, 59  # 在此设置比赛结束的时间 年月日时分秒
+Year, month, day, Hour, Minute, Second = 2019, 9, 3, 17, 22, 22  # 在此设置比赛结束的时间 年月日时分秒
 round_time = 5  # 一轮五分钟
-user_count = 5 # 用户数量
+user_count = 4 # 用户数量
 round_index = 1 # 第一轮
 run = 1
 fraction = 10000 #初始分数

@@ -36,7 +36,8 @@ def get_docker_sh(num):
 
     try:
         data = read_data(team_name + '/reset_docker.sh')
-        data = data.replace("{web_out_port}", web_out_port).replace("{ssh_port}", ssh_port).replace("{team_name}",team_name)
+        data = data.replace("{web_out_port}", web_out_port).replace("{ssh_port}", ssh_port).replace("{team_name}",
+                                                                                                    team_name)
         write_data(team_name + '/reset_docker.sh', data)
     except Exception as e:
         print('[-] no reset docker')
@@ -114,7 +115,7 @@ for i in range(1, user_count + 1):
     return
 
 
-def update_check_server_config(user_count, secret_key, flag_key):
+def update_check_server_config(user_count, secret_key, flag_key, check_port):
     lib = "{\n"
     for i in range(1, user_count + 1):
         user_name = "user" + str(i).zfill(2)
@@ -131,10 +132,17 @@ round_time = 5 * 60
 secret_key = '{}'
 flag_key = '{}'
 lib = {}
-""".format(flag_server, user_count, secret_key, flag_key, lib)
+check_port = {}
+""".format(flag_server, user_count, secret_key, flag_key, lib, check_port)
     write_data("host.list", lib)
     write_data("check_server/webapps/config.py", data)
     return
+
+
+def get_check_port(dir):
+    data = read_data(BASE_DIR + '/'+dir + '/docker.sh')
+    check_port = data.split('{web_out_port}:')[1].split(' ')[0]
+    return int(check_port)
 
 
 def main():
@@ -147,6 +155,7 @@ def main():
     passwords = ""
     flag_key = generate_key()
     secret_key = generate_key()
+    check_port = get_check_port(dir)
     for i in range(1, team_number + 1):
         team_name = 'team' + str(i).zfill(2)
         print("[+] Copy DATA ! {}".format(team_name))
@@ -163,7 +172,7 @@ def main():
     update_flag_server_config(secret_key, team_number, hold_hour=hold_hour, round_time=round_time,
                               flag_score=flag_score, fraction=fraction)
     print("[+] update flag server config! ")
-    update_check_server_config(team_number, secret_key, flag_key)
+    update_check_server_config(team_number, secret_key, flag_key, check_port)
     print("[+] update check server config! ")
     write_data('pass.txt', passwords)
     set_checker(dir)

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-4.0.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+
+
+    <mvc:annotation-driven/>
+    <context:annotation-config />
+
+    <!-- 扫描web包，应用Spring的注解 -->
+    <context:component-scan base-package="com.bupt.web"/>
+
+    <!--全局错误信息处理器
+      只要实现HandlerExceptionResolver接口就是全局异常处理器
+    -->
+    <!--<bean class="com.bupt.exception.CustomExceptionResolver"/>-->
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+         <!--多个拦截器，顺序执行 -->
+         <!--如果有多个拦截器，则按照顺序进行配置-->
+        <mvc:interceptor>
+            <mvc:mapping path="/profile/add"/>
+             <!--配置自定义的文件上传类型限制拦截器-->
+            <bean class="com.bupt.interceptor.FileTypeInterceptor"/>
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/profile/**"/>
+            <mvc:mapping path="/download/**"/>
+            <mvc:mapping path="/admin/**"/>
+            <bean class="com.bupt.interceptor.LoginInterceptor"/>
+        </mvc:interceptor>
+
+    </mvc:interceptors>
+
+    <!-- 对文件上传的处理，这里声明的id必须为multipartResolver-->
+    <bean id="multipartResolver"  class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >
+        <!--  最大为10M，单位为字节   -->
+        <!--<property name="maxUploadSize" value="10485760"></property>-->
+        <property name="defaultEncoding" value="utf-8"></property>
+        <property name="maxInMemorySize" value="40960"></property>
+    </bean>
+
+    <bean class="com.bupt.common.SpringExceptionResolver" />
+
+    <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+
+    <bean id="jsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView" />
+
+    <!-- 配置视图解析器，将ModelAndView及字符串解析为具体的页面 -->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/WEB-INF/jsp/" />
+        <property name="suffix" value=".jsp" />
+    </bean>
+    <!--<bean-->
+            <!--class="org.springframework.web.servlet.view.InternalResourceViewResolver"-->
+            <!--p:viewClass="org.springframework.web.servlet.view.JstlView"-->
+            <!--p:prefix="/WEB-INF/jsp/"-->
+            <!--p:suffix=".jsp"/>-->
+
+    <!-- 配置静态资源 -->
+    <mvc:default-servlet-handler />
+    <!--对静态资源文件的访问 -->
+
+    <mvc:resources location="/css/" mapping="/css/**"/>
+    <mvc:resources location="/js/" mapping="/js/**"/>
+    <mvc:resources location="/bootstrap3.3.5/" mapping="/bootstrap3.3.5/**"/>
+    <mvc:resources location="/images/" mapping="/images/**"/>
+
+</beans>

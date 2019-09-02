@@ -10,7 +10,6 @@ check = importlib.import_module('check_scripts.checker').check
 
 def check_one(user_name):
     check_ip = lib[user_name]
-    check_port = 80
     return check(check_ip, check_port)
 
 

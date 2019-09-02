@@ -1,0 +1,12 @@
+version: "3"
+services:
+  web:
+    container_name: jmmt
+    image: wulasite/jmmt:latest
+    ports:
+        - 8080:8080
+    volumes:
+        - ./source.zip:/opt/source.zip
+        - ./run.sh:/opt/run.sh
+    command:
+        - /opt/run.sh

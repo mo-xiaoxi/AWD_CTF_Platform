@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+/* 
+* DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER. 
+* 
+* Copyright 1997-2007 Sun Microsystems, Inc. All rights reserved. 
+* 
+* The contents of this file are subject to the terms of either the GNU 
+* General Public License Version 2 only ("GPL") or the Common Development 
+* and Distribution License("CDDL") (collectively, the "License").  You 
+* may not use this file except in compliance with the License. You can obtain 
+* a copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL.html 
+* or glassfish/bootstrap/legal/LICENSE.txt.  See the License for the specific 
+* language governing permissions and limitations under the License. 
+* 
+* When distributing the software, include this License Header Notice in each 
+* file and include the License file at glassfish/bootstrap/legal/LICENSE.txt. 
+* Sun designates this particular file as subject to the "Classpath" exception 
+* as provided by Sun in the GPL Version 2 section of the License file that 
+* accompanied this code.  If applicable, add the following below the License 
+* Header, with the fields enclosed by brackets [] replaced by your own 
+* identifying information: "Portions Copyrighted [year] 
+* [name of copyright owner]" 
+* 
+* Contributor(s): 
+* 
+* If you wish your version of this file to be governed by only the CDDL or 
+* only the GPL Version 2, indicate your decision by adding "[Contributor] 
+* elects to include this software in this distribution under the [CDDL or GPL 
+* Version 2] license."  If you don't indicate a single choice of license, a 
+* recipient has the option to distribute your version of this file under 
+* either the CDDL, the GPL Version 2 or to extend the choice of license to 
+* its licensees as provided above.  However, if you add GPL Version 2 code 
+* and therefore, elected the GPL Version 2 license, then the option applies 
+* only if the new code is made subject to such option by the copyright 
+* holder. 
+*/ 
+-->
+<!--
+  GlassFish master POM
+  ====================
+  
+  This POM is the organization root POM, from which all the components in the GlassFish umbrella
+  extends from. A similar POM for other organizations can be seen in [1].
+  
+  The point of this POM is to provide organizational information, repository location, and
+  license information. The nature of the POM makes it unsuitable for putting information
+  that changes frequently, so this is not a place for example to define properies that 
+  designate component versions that GlassFish depends on.
+
+  In an attempt to control the build stability with SNAPSHOTs, we are experimenting with
+  no snapshot updates by default.
+
+  [1] http://svn.apache.org/viewvc/maven/pom/trunk/asf/pom.xml?view=markup
+--> 
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <prerequisites>
+        <maven>2.0.4</maven>
+    </prerequisites>
+    <groupId>org.glassfish</groupId>
+    <artifactId>pom</artifactId>
+    <packaging>pom</packaging>
+    <version>2</version>
+    <name>GlassFish Master POM</name>
+    <url>http://glassfish.org/</url>
+    <scm>
+        <connection>scm:svn:https://kohsuke@svn.dev.java.net/svn/glassfish-svn/tags/pom-2</connection>
+        <developerConnection>scm:svn:https://kohsuke@svn.dev.java.net/svn/glassfish-svn/tags/pom-2</developerConnection>
+    </scm>
+    
+    <licenses>
+      <license>
+        <name>CDDL + GPLv2 with classpath exception</name>
+        <url>https://glassfish.dev.java.net/nonav/public/CDDL+GPL.html</url>
+        <distribution>repo</distribution>
+        <comments>A business-friendly OSS license</comments>
+      </license>
+    </licenses>
+    
+  	<organization>
+    	<name>Sun Microsystems, Inc.</name>
+    	<url>http://www.sun.com</url>
+  	</organization>
+  	
+    <repositories>
+        <repository>
+            <id>glassfish-repository</id>
+            <name>Java.net Repository for Glassfish</name>
+            <url>http://download.java.net/maven/glassfish</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <!-- back up glassfish maven repository in case the 'glassfish-repository' goes down -->
+            <id>glassfish-repository-wsinterop</id>
+            <name>Java.net Repository for Glassfish</name>
+            <url>http://maven.dyndns.org/glassfish/</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>java-dev-repository</id>
+            <name>Maven 1.x java.dev Snapshot Repository</name>
+            <layout>legacy</layout>
+            <!-- url>http://download.java.net/maven/1</url -->
+            <url>https://maven-repository.dev.java.net/nonav/repository</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>repo1.maven.org</id>
+            <name>Maven 2 default Repository</name>
+            <url>http://repo1.maven.org/maven2</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>maven2.java.net</id>
+            <name>Java.net Repository for Maven 2</name>
+            <url>http://download.java.net/maven/2</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <!-- in case the primary repository goes down -->
+            <id>maven2.java.net-backup</id>
+            <name>Java.net Repository for Maven 2</name>
+            <url>https://maven2-repository.dev.java.net/nonav/repository</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+    
+    <pluginRepositories>
+        <pluginRepository>
+            <id>glassfish-repository</id>
+            <name>Java.net Repository for Maven 2</name>
+            <url>http://download.java.net/maven/glassfish</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <!-- back up glassfish maven repository in case the 'glassfish-repository' goes down -->
+            <id>glassfish-repository-wsinterop</id>
+            <name>Java.net Repository for Glassfish</name>
+            <url>http://maven.dyndns.org/glassfish/</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <id>maven2.java.net</id>
+            <name>Java.net Repository for Maven 2</name>
+            <url>http://download.java.net/maven/2</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+        <pluginRepository>
+            <!-- backup -->
+            <id>maven2.java.net-wsinterop</id>
+            <name>Java.net Repository for Maven 2</name>
+            <url>http://maven.dyndns.org/2</url>
+            <snapshots>
+                <updatePolicy>never</updatePolicy>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
+    
+    <distributionManagement>
+        <!-- our internal staging repository, to be pushed to http://download.java.net/maven/glassfish/ -->
+        <repository>            
+            <uniqueVersion>false</uniqueVersion>
+            <!-- the ID maps to ~/.m2/settings.xml, so don't change the ID -->
+            <id>rator.sfbay</id>
+            <url>dav:http://rator.sfbay/maven/repositories/glassfish/</url>
+        </repository>
+    </distributionManagement>
+    
+    <build>
+        <!--
+          please be very conservative about what plugins to configure by default,
+          as this POM will be used very widely.
+        -->
+        <plugins>
+            <plugin>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                </configuration>
+            </plugin>
+        </plugins>
+        <extensions>
+             <extension>
+                  <groupId>org.apache.maven.wagon</groupId>
+                  <artifactId>wagon-webdav</artifactId>
+                  <version>1.0-beta-2</version>
+             </extension>
+        </extensions>
+    </build>
+
+    <properties>
+        <!--
+          java.net user id. Used in SCM setting to access java.net.
+          If your local id and java.net user id are diffrent, override this property
+          in your ~/.m2/settings.xml
+        -->
+        <java.net.username>${user.name}</java.net.username>
+    </properties>
+</project>
