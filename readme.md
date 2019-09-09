@@ -83,7 +83,7 @@ team04	ctf:e29190	ssh:2204	port:8804
 
 ### Web_xxx
 
-预置两个Web环境（web_chinaz,web_simplecms)。
+预置四个Web环境（web_chinaz,web_simplecms,web_gotsctf2018,web_javatsctf2018ss)。
 
 xxx代表环境名称。
 
@@ -101,7 +101,7 @@ https://github.com/m0xiaoxi/AWD_CTF_Platform/blob/master/doc/
 
 - [Zhl20018#awd-platform](https://github.com/zhl2008/awd-platform)
 - [Henryzhao#gotsctf2018](https://github.com/Henryzhao96)
-- [wulasite#javatsctf2018](https://github.com/wulasite)
+- [Wulasite#javatsctf2018](https://github.com/wulasite)
 
 # License
 

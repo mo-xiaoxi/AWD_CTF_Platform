@@ -14,7 +14,7 @@ import hashlib
 import time
 
 
-def dict2list(dic: dict):
+def dict2list(dic):
     ''' 将字典转化为列表 '''
     keys = dic.keys()
     vals = dic.values()
