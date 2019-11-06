@@ -83,7 +83,7 @@ team04	ctf:e29190	ssh:2204	port:8804
 
 ### Web_xxx
 
-预置四个Web环境（web_chinaz,web_simplecms,web_gotsctf2018,web_javatsctf2018ss)。
+预置四个Web环境（web_chinaz,web_simplecms,web_gotsctf2018,web_javatsctf2018)。
 
 xxx代表环境名称。
 
