@@ -102,6 +102,7 @@ https://github.com/m0xiaoxi/AWD_CTF_Platform/blob/master/doc/
 - [Zhl20018#awd-platform](https://github.com/zhl2008/awd-platform)
 - [Henryzhao#gotsctf2018](https://github.com/Henryzhao96)
 - [Wulasite#javatsctf2018](https://github.com/wulasite)
+- [5am3#awd_platform](https://github.com/HECTF/awd_platform)
 
 # License
 
