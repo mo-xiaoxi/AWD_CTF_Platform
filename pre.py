@@ -11,6 +11,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 def copy_dir(src, dest):
     os.system('mkdir -m 777 -p %s' % (dest))
     os.system('cp -r %s/* %s' % (src, dest))
+    os.system('cp flag.py %s' % dest)
 
 
 def read_data(path):
@@ -26,17 +27,17 @@ def write_data(path, data=''):
 
 
 def get_docker_sh(num):
-    web_out_port = str(8800 + num)
+    out_port = str(8800 + num)
     ssh_port = str(2200 + num)
     team_name = 'team' + str(num).zfill(2)
     data = read_data(team_name + '/docker.sh')
-    data = data.replace("{web_out_port}", web_out_port).replace("{ssh_port}", ssh_port).replace("{team_name}",
+    data = data.replace("{out_port}", out_port).replace("{ssh_port}", ssh_port).replace("{team_name}",
                                                                                                 team_name)
     write_data(team_name + '/docker.sh', data)
 
     try:
         data = read_data(team_name + '/reset_docker.sh')
-        data = data.replace("{web_out_port}", web_out_port).replace("{ssh_port}", ssh_port).replace("{team_name}",
+        data = data.replace("{out_port}", out_port).replace("{ssh_port}", ssh_port).replace("{team_name}",
                                                                                                     team_name)
         write_data(team_name + '/reset_docker.sh', data)
     except Exception as e:
@@ -140,8 +141,8 @@ check_port = {}
 
 
 def get_check_port(dir):
-    data = read_data(BASE_DIR + '/'+dir + '/docker.sh')
-    check_port = data.split('{web_out_port}:')[1].split(' ')[0]
+    data = read_data(BASE_DIR + '/' + dir + '/docker.sh')
+    check_port = data.split('{out_port}:')[1].split(' ')[0]
     return int(check_port)
 
 
